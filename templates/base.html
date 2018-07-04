@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    {#    //兼容IE浏览器#}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {#    // 响应式布局#}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>精选美文</title>
+    {#    引入css样式  #}
+    <link rel="stylesheet" href="{% static 'base/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/bootstrap-theme.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css' %}">
+{#    引入自定义的css样式#}
+    {% block css %}
+    
+    {% endblock %}
+
+
+</head>
+<body>
+    {#实现页面导航#}
+{% block content %}
+
+{% endblock %}
+
+ <!-- 实现页面底部内容 -->
+
+
+    {#    引入js #}
+    <script src="{% static 'base/js/jquery.min.js' %}"> </script>
+    <script src="{% static 'base/js/jquery.singlePageNav.min.js' %}"> </script>
+    <script src="{% static 'base/js/bootstrap.min.js' %}"> </script>
+    <script src="{% static 'base/js/wow.min.js' %}"> </script>
+
+    {#图片的延迟加载#}
+    <script src="{% static 'lazyload/jquery.lazyload.min.js' %}"> </script>
+
+    {#引入自定义的js#}
+    {% block js %}
+
+    {% endblock %}
+</body>
+</html>

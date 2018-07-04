@@ -1,4 +1,5 @@
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from artapp.models import  ArtTag,Art
@@ -48,3 +49,13 @@ def edit_art(request):
         art.img = img
         art.save()
         return redirect('/art')
+
+
+def search(request):
+    # 按照书名或者作者名搜索
+    skey = request.POST.get('searchKey')
+    arts = Art.objects.filter(Q(title__contains=skey)|Q(author__contains=skey))
+
+    # 分页和页面布局
+
+    return render(request,'art/list_search.html',{'arts':arts})

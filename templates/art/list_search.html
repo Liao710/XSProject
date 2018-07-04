@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>文章列表页面</title>
+    <title>搜索结果页面</title>
     <style>
         #tag_nav{
-            padding: 15px;
+            padding: 5px;
             font-size: 18px;
         }
         #tag_nav .tag_all{
@@ -67,43 +67,12 @@
         .active{
             background-color: palevioletred;
         }
-        #searchKey{
-            padding: 8px;
-            font-size: 1.2em;
-        }
-        .btn{
-            display: inline-block;
-            height: 43px;
-            width: 80px;
-            text-align: center;
-            line-height: 43px;
-            border: 1px solid gray;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .btn:hover{
-            background-color: lightblue;
-        }
     </style>
 </head>
 <body>
 <h1>文章列表</h1>
 <div><a href="/art/edit_art">新增文章</a></div>
-    <div id="search" >
-        <form action="/art/search" method="post" >
-            {% csrf_token %}
-            <input id="searchKey" name="searchKey" type="text" placeholder="搜索书名或作者名">
-            <span class="btn btn-default" onclick="search()">搜索</span>
-        </form>
-    </div>
-    <div id="tag_nav">
-        <b>标签分类:</b>
-        <a href="/art/" {% if tag_id == 0 %} class="tag_all" {% endif %} >所有</a>
-        {% for tag in tags %}
-            <a {% if tag.id == tag_id %} class="tag_all" {% endif %} href="/art/?tag={{ tag.id }}">{{ tag.title }}</a>
-        {% endfor %}
-    </div>
-    <div>
+
         <ul id = 'art_container'>
             {% for art in arts %}
             <li>

@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^tags$',add_tags),
     url(r'^delete_tag$',delete_tag),
     url(r'^list_tags$',list_tags),
-    url(r'^edit_art$',views_art.edit_art)
+    url(r'^edit_art$',views_art.edit_art),  #  编辑文字
+    url(r'^search', views_art.search),  # 搜索文章
 ]

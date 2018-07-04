@@ -11,9 +11,10 @@ def index(request):
     page_num = request.GET.get('page')
 
     if not page_num:
-        page_num = 1
+        page_num = 1  # 从第一个开始
+
     # 如果tag_id不存在时,则表示为所有(即不分类型)
-    if not tag_id:
+    if (not tag_id) or (tag_id == '0'):
         tag_id = 0
         arts = Art.objects.all()
     # 根据分类查找
@@ -21,15 +22,21 @@ def index(request):
         arts = Art.objects.filter(tag_id=tag_id).all()
 
     # 分页器,每页显示4条数据
-    paginator = Paginator(arts,1)
+    paginator = Paginator(arts,3)
     #  获取第 page_num 页
+    # 判断当前页码是否大于最大页数
+    if int(page_num) > paginator.num_pages:
+        page_num = paginator.num_pages
+    # 判断页码是否小于等于0
+    elif int(page_num) <= 0:
+        page_num = 1
     page = paginator.page(page_num)
     print(paginator.page_range)
     # 返回渲染模板
     return render(request,'art/list.html',context = {'arts':page.object_list ,
                                                      'page_range':paginator.page_range,
                                                      'page':page,
-                                                     'tag_id':tag_id,
+                                                     'tag_id':int(tag_id),
                                                      'tags':ArtTag.objects.all()})
 
 
