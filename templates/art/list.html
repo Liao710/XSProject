@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章列表页面</title>
+    <style>
+        #tag_nav{
+            padding: 5px;
+            font-size: 18px;
+        }
+        .tag_all{
+            background-color: red;
+        }
+        #tag_nav a{
+            {#去除a标签的下划线#}
+            text-decoration: none;
+            {#指针变成手标#}
+            cursor: pointer;
+            padding: 5px;
+            background-color: lightblue;
+            border: 1px solid blue;
+            border-radius: 5px;
+        }
+        #art_container{
+            {#把前面的.去掉#}
+            list-style: none;
+        }
+         #art_container li{
+             float: left;
+             padding: 8px;
+         }
+         {#清除浮动#}
+         #art_container:after{
+             content: '';
+             display: block;
+             height: 0;
+             overflow: hidden;
+             clear: both;
+         }
+         #art_container img:hover{
+             box-shadow: 2px 2px 5px dodgerblue ;
+             transform: scale3d(1.05,1.05,1.05);
+             transition: transform ease-in-out 1s;
+         }
+        #art_container li label{
+            display: block;
+        }
+        #art_container li dd{
+            margin: 0px;
+            padding: 2px;
+        }
+    </style>
+</head>
+<body>
+    <h1>文章列表</h1><a href="/art/edit_art">新增文章</a>
+    <div id="tag_nav">
+        <b>标签分类:</b>
+        <a href="/art/" class="tag_all">所有</a>
+        {% for tag in tags %}
+            <a href="/art/?tag={{ tag.id }}">{{ tag.title }}</a>
+        {% endfor %}
+    </div>
+    <div>
+        <ul id = 'art_container'>
+            {% for art in arts %}
+            <li>
+                <dl>
+                    <dt>
+                        <img src="/static/art_ups/{{ art.img }}" alt=""
+                        width="200" height="240">
+                    </dt>
+                    <dd>
+                        <label>{{ art.title }}</label>
+                        <label>作者:{{ art.author }}</label>
+                        <label>分类:{{ art.tag.title }} </label>
+                    </dd>
+                    <dd><button>阅读</button></dd>
+                </dl>
+            </li>
+             {% endfor %}
+
+        </ul>
+
+    <div class="pagination">
+        <a href="">上一页</a>
+        {% for num in page_range %}
+            {% if num == page.number %}
+                <a href="/art/?tag={{ tag_id }}&page={{ num }}">{{ num }}</a>
+                {% else %}
+                <a class="active" href="/art/?tag={{ tag_id }}&page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        <a href="">下一页</a>
+
+
+    </div>
+    </div>
+</body>
+</html>
