@@ -6,6 +6,6 @@ from artapp import views_art
 
 urlpatterns = [
     # 声明主页面的请求
-    url('^register$', views.register),
+    url('^regist$', views.regist),
 
 ]
