@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'artapp',
+    'userapp',
 ]
 
 MIDDLEWARE = [
@@ -131,4 +132,4 @@ STATICFILES_DIRS = [
 
 # 多媒体文件（图片、视频、音频、表格等）
 # BASE_DIR 表示当前跟目录
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/art_ups')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/ups')
