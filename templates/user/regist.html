@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block content %}
     <div class="user container">
         <h1>用户注册页面</h1>
@@ -38,14 +38,66 @@
             </div>
             <div class="form-group">
                 <label class="col-xs-2 col-md-3">头像</label>
-                <input class="form-control col-xs-6 col-md-6" name="photo"
-                type="file" placeholder="请上传头像">
+
+                <img class="img-circle" id="preImg"  src="{% static 'base/images/logo.png' %}" width="80" height="80"
+                     onclick="uploadFile.click()">
             </div>
+            {# 隐藏域: ajax上传图片后,返回的图片路径需要保存到用户表中 #}
+            <input type="hidden" name="photo"  id = 'photo'>
              <div class="form-group">
                <button class="btn btn-primary">注册</button>
             </div>
 
         </form>
+    {# onchange事件: 当文件选择时,回掉的函数  #}
+    <input id="uploadFile" type="file" style="display: none"
+    onchange="uploadImg(this.files[0])">
+
     </div>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        function uploadImg(uploadFile) {
+            alert('准备上传文件 ');
+            console.log(uploadFile);
+
+            // 创建xhr的ajax异步请求对象
+            var xhr = new XMLHttpRequest();
+
+            var formdata = new FormData();//表单数据对象
+            // 上传图片的字段名(参数名:photo)
+            formdata.append('photo',uploadFile);
+
+            // 打开连接
+            // open(method,url,is_async) 是否异步
+            xhr.open('post','/user/upload',true);
+
+            xhr.onload = function (ev) {
+                // 判断请求是否成功
+                // 响应的数据是否可以读取
+                if (xhr.status == 200 && xhr.readyState == 4){
+                    alert('上传成功!');
+                    console.log(xhr.responseText);
+
+                    // 将响应的json字符串转换成json对象
+                    respData = JSON.parse(xhr.responseText);
+
+                    // 显示上传之后的图片
+                    $('#preImg').attr('src','/static/ups/'+ respData.path )
+
+                    //将上传成功后的图片路径(在服务器的路径)
+                    $('#photo').val(respData.path)
+
+                }
+
+            };
+            // 4.发送请求
+            xhr.send(formdata)
+
+
+        }
+    </script>
 
 {% endblock %}

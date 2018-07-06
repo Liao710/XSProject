@@ -59,3 +59,14 @@ def search(request):
     # 分页和页面布局
 
     return render(request,'art/list_search.html',{'arts':arts})
+
+
+def show(request):
+    id  = request.GET.get('id')
+    print(id)
+
+    # 查询文章信息
+
+    art = Art.objects.filter(id=id).first()
+
+    return render(request,'art/art_info.html',{'art':art})

@@ -1,0 +1,30 @@
+section {
+
+    background-color: whitesmoke;
+    border-radius: 5px;
+    border: 1px dotted whitesmoke;
+    margin: 10px;
+}
+section h3{
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+    padding: 10px;
+    margin: 0px;
+}
+section h3 span{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
