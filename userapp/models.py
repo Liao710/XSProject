@@ -9,8 +9,10 @@ class UserProfile(models.Model):
     #  diango的密码生成器 ,  make_password
     password = models.CharField(max_length=100,verbose_name='密码')
     phone = models.CharField(max_length=13,verbose_name='联系电话',null=True)
+
     # upload_to 指定的路径是相对于settings.py中MEDIA_ROOT设置的路径
-    photo = models.ImageField(upload_to='users',verbose_name='头像',null=True)
+    # photo = models.ImageField(upload_to='users',verbose_name='头像',null=True)
+    photo = models.CharField(max_length=100,null=True, blank=True)
     # 注册时间
     regist_time = models.DateTimeField(auto_now_add=True,verbose_name='注册时间')
     # 最后登陆时间
@@ -24,7 +26,7 @@ class UserProfile(models.Model):
     def save(self):
         # hash密码生成器
         # 判断是否已加密,已加密则不再加密,未加密则加密
-        if self.password.startswith('pbkdf2_sha256'):
+        if not self.password.startswith('pbkdf2_sha256'):
             self.password = make_password(self.password)
         super().save()
 
