@@ -14,13 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url,include
-from django.contrib import admin
-
-import artapp
+# from django.contrib import admin
+import xadmin as admin  # 导入xadmin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^art/',include('artapp.urls',namespace='artapp')),
+    url(r'^ueditor/',include('DjangoUeditor.urls')),
+    url(r'^art/', include('artapp.urls', namespace='artapp')),
     url(r'^user/', include('userapp.urls', namespace='userapp'))
 
 ]
